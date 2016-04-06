@@ -1,0 +1,18 @@
+<h1>Sign In</h1>
+<p class="lead">Welcome back, we've missed you!</p>
+<hr class="m-y-2">
+<br />
+<form>
+    <div class="form-group">
+        <label for="InputEmail">Email</label>
+        <input type="email" class="form-control" ng-model="li.userObj.email" id="email">
+    </div>
+    <div class="form-group">
+        <label for="InputPassword">Password</label>
+        <input type="password" class="form-control" ng-model="li.userObj.password" id="password">
+    </div>
+    <button type="submit" class="btn btn-warning" ng-click="li.login()">Sign In</button>
+    <a ui-sref="home">
+        <button type="submit" class="btn btn-warning" ng-click="li.logout()">Log Out</button>
+    </a>
+</form>

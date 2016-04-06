@@ -1,0 +1,15 @@
+.img-responsive {
+    display: inline-block !important;
+    max-width: 100%;
+    height: auto;
+}
+
+.well {
+    display: inline-block !important;
+    margin: 10px;
+}
+
+.card-thumbnail {
+    width: 200px;
+    height: 150px;
+}
