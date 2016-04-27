@@ -1,9 +1,6 @@
-<!-- <div class="panel panel-warning">
-    <div class="panel-heading">
-        <h3>Product Detail</h3>
-    </div>
-      <div class="panel-body">
-          <p>{{proddtl.detailItem.name}}</p>
-          <p>${{proddtl.detailItem.price}}</p>
-      </div>
-</div> -->
+<h3>{{proddtl.detailItem.name}}</h3>
+<div>Product ID: {{proddtl.detailItem.id}}</div>
+<img ng-src={{proddtl.detailItem.imgThumbnail}}>
+<div>Description: {{proddtl.detailItem.description}}</div>
+<h4>Price: ${{proddtl.detailItem.price}}</h4>
+<button class="btn btn-warning">Add To Cart</button>

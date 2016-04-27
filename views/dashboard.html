@@ -1,0 +1,44 @@
+<h2>Transaction Summary</h2>
+<table class="table table-hover">
+    <tr>
+        <th>Transaction Type</th>
+        <th>Sale</th>
+        <th>Lost/Stolen</th>
+        <th>Returned to Supplier</th>
+        <th>Inventory Purchase</th>
+        <th>Returned</th>
+        <th>Returned Defective</th>
+        <th>Totals</th>
+    </tr>
+    <tr ng-repeat="prod in dsh.prodSumm">
+        <td>{{}}</td>
+        <td>{{}}</td>
+        <td>{{}}</td>
+        <td>{{}}</td>
+        <td>{{}}</td>
+        <td>{{}}</td>
+        <td>{{}}</td>
+        <td>{{}}</td>
+    </tr>
+</table>
+<h2>All Transactions</h2>
+<table class="table table-hover">
+    <tr>
+        <th>Transaction ID</th>
+        <th>Transaction Type</th>
+        <th>Date</th>
+        <th>Notes</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th>Cost</th>
+    </tr>
+    <tr ng-repeat="trans in dsh.transArray">
+        <td>{{trans.id}}</td>
+        <td>{{trans.type.description}}</td>
+        <td>{{trans.date | date:'MM/dd/yyyy @ h:mma'}}</td>
+        <td>{{trans.note}}</td>
+        <td>{{trans.totalAmt | currency}}</td>
+        <td>{{trans.totalPrice | currency}}</td>
+        <td>{{trans.totalCost | currency}}</td>
+    </tr>
+</table>

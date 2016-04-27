@@ -3,14 +3,21 @@
     .factory('UserAuth', userAuth);
 
     function userAuth($http, $localStorage){
-
+        //init function for user info
         var service = {
             join: join,
             login: login,
             info: null,
-            logout: logout
+            logout: logout,
+            userRole: null,
+            loggedIn: null,
+            getNav: getNav
 		};
 		return service;
+
+        function getNav(user){
+            return user;
+        }
 
         function join(obj){
             return $http.post('http://wta-inventorybackend.herokuapp.com/api/v1/signup', obj)
@@ -25,14 +32,11 @@
                     successAuth(result.data);
                     return result.data;
                 });
-                // },
-                // function(result){
-                //     return result;
-                //     // return result.data;
-                // });
         }
 
         function logout(){
+            service.userRole = null;
+            service.loggedIn = null;
             delete $localStorage.token;
         }
 
@@ -41,6 +45,8 @@
             console.log('success - auth');
             $localStorage.token = res.token;
             service.info = getClaimsFromToken();
+            service.loggedIn = service.info.name;
+            service.userRole = service.info.role;
             console.log(service.info);
         }
 
@@ -51,6 +57,11 @@
                 var encoded = token.split('.')[1];
                 user = JSON.parse(urlBase64Decode(encoded));
             }
+            // console.log(user);
+            service.userRole = user.role;
+            service.loggedIn = true;
+            console.log('userRole: ' + service.userRole);
+            getNav(user);
             return user;
         }
 

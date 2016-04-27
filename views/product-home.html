@@ -1,41 +1,9 @@
-<h1 class="text-center">Duzett Tech</h1>
-
-<!-- <div class="row">
-    <div class="col-sm-6">
-        <div ui-view="columnOne"></div>
-    </div>
-    <div class="col-sm-6">
-        <div ui-view="columnTwo"></div>
-    </div>
-</div> -->
-
-<div class="row">
-    <div class="col-sm-6">
-        <div ng-repeat="products in prodhm.productArray" class="well">
-            <img class="card-thumbnail" ng-src={{products.imgThumbnail}}>
-            <h4 class="card-title">{{products.name}}</h4>
-            <!-- <p class="card-text">Product ID: {{products.id}}</p> -->
-            <p class="card-text">
-                Product ID: {{products.id}}<br />
-                Price: ${{products.price}}
-            </p>
-            <button class="btn btn-warning" ng-click="prodhm.detail(products)">Details</button>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <h3>Product Detail</h3>
-            </div>
-              <!-- <div class="panel-body" ng-model="prodhm.detailItem"> -->
-              <div class="panel-body" ng-show="prodhm.fullDetail">
-                  <h4>{{prodhm.detailItem.name}}</h4>
-                  <div>Product ID: {{prodhm.detailItem.id}}</div>
-                  <img ng-src={{prodhm.detailItem.imgThumbnail}}>
-                  <div>Description: {{prodhm.detailItem.description}}</div>
-                  <h5>Price: ${{prodhm.detailItem.price}}</h5>
-                  <button class="btn btn-warning">Add To Cart</button>
-              </div>
-        </div>
-    </div>
+<h1 class="text-center">Duzett Tech Shop</h1>
+<div ng-repeat="products in prodhm.productArray" class="well">
+    <img class="card-thumbnail" ng-src={{products.imgThumbnail}}>
+    <h4 class="card-title">{{products.name}}</h4>
+    <p class="card-text">
+        Price: ${{products.price}}
+    </p>
+    <button class="btn btn-warning" ui-sref="productDetail({productId: products.id})">Details</button>
 </div>

@@ -1,0 +1,46 @@
+<h1>Admin</h1>
+<!-- <table class="table table-responsive product-description-cell"> -->
+<table class="table">
+    <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Inventory</th>
+        <th>Cost</th>
+        <th>Price</th>
+        <th>IMG Thumbnail</th>
+        <th>Manage</th>
+        <th> </th>
+    </tr>
+    <tr ng-repeat="prod in ad.prodArray">
+        <td>{{prod.id}}</td>
+        <td><span ng-hide="prod.id === ad.editMode">{{prod.name}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.name"></input></td>
+        <td><span ng-hide="prod.id === ad.editMode">{{prod.description}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.description"></input></td>
+        <td>{{prod.amt}}</td>
+        <td><span ng-hide="prod.id === ad.editMode">{{prod.cost}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.cost"></input></td>
+        <td><span ng-hide="prod.id === ad.editMode">{{prod.price | currency}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.price"></input></td>
+        <td><span ng-hide="prod.id === ad.editMode">{{prod.imgThumbnail}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.imgThumbnail"></input></td>
+        <td>
+            <button type="button" class="btn btn-warning" ng-show="prod.id !== ad.editMode" ng-click="ad.edit(prod)">Edit</button>
+            <button type="button" class="btn btn-success" ng-show="prod.id === ad.editMode" ng-click="ad.saveEdit(prod)">Save</button>
+            <button type="button" class="btn btn-warning" ng-show="prod.id === ad.editMode" ng-click="ad.noEditMode()">Cancel Editing</button>
+        </td>
+        <td><button type="button" class="btn btn-danger" ng-click="ad.deleteItem(prod)">Delete</button></td>
+    </tr>
+    <tr ng-show="ad.addMode !== null">
+        <td><input ng-model="ad.newItem.id" /></td>
+        <td><input ng-model="ad.newItem.name" /></td>
+        <td><input ng-model="ad.newItem.description" /></td>
+        <td><input ng-model="ad.newItem.amt" /></td>
+        <td><input ng-model="ad.newItem.cost" /></td>
+        <td><input ng-model="ad.newItem.price" /></td>
+        <td><input ng-model="ad.newItem.imgThumbnail" /></td>
+        <td><button type="button" class="btn btn-success" ng-click="ad.add()">Save</button></td>
+        <td><button type="button" class="btn btn-danger" ng-click="ad.noAddMode()">Cancel</button></td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-warning" ng-click="ad.addModeOn()">New</button>
+        </td>
+    </tr>
+</table>

@@ -8,14 +8,13 @@
 
         // BOUND FUNCTIONS
         self.login = login;
-        self.logout = logout;
 
         // BOUND VALUES
         self.userObj = {
             email: '',
             password: ''
         };
-        self.loggedIn = false;
+
         // BOUND FUNCTION IMPLEMENTATIONS
         function login(){
             if (!self.userObj.email || !self.userObj.password){
@@ -28,19 +27,12 @@
                     alert('Welcome back, ' + UserAuth.info.name + '! Happy shopping!');
                 },
                 function(response){
-                    // console.log(response);
                     alert(response.data.message);
-                    self.loggedIn = true;
                 });
             self.userObj = {
                 email: '',
                 password: ''
             };
-        }
-        function logout(){
-            UserAuth.logout();
-            self.loggedIn = false;
-            alert('Logout successful - see you later!');
         }
     }
 

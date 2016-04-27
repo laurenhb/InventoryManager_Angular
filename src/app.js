@@ -7,33 +7,20 @@
         $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: 'views/home.html',
+            templateUrl: 'views/home.html'
         })
         .state('signup', {
             url: '/signup',
             templateUrl: 'views/signup.html',
-            controller: 'SignUp as su',
+            controller: 'SignUp as su'
         })
         .state('login', {
             url: '/login',
             templateUrl: 'views/login.html',
-            controller: 'Login as li',
+            controller: 'Login as li'
         })
         .state('product-home', {
-            url: '/product-home',
-            // views: {
-            //     '': {
-            //         templateUrl: 'views/product-home.html',
-            //     },
-            //     'columnOne@product-home': {
-            //         templateUrl: 'views/products.html',
-            //         controller: 'ProductHome as prodhm'
-            //     },
-            //     'columnTwo@product-home': {
-            //         templateUrl: 'views/product-detail.html',
-            //         controller: 'ProductDetail as proddtl',
-            //     }
-            // },
+            url: '/product',
             templateUrl: 'views/product-home.html',
             controller: 'ProductHome as prodhm',
             resolve:{
@@ -41,16 +28,41 @@
                     return Item.list();
                 }
             }
+        })
+        .state('productDetail', {
+            url: '/product/:productId',
+            templateUrl: 'views/product-detail.html',
+            controller: 'ProductDetail as proddtl'
+        })
+        // .state('order-hist', {
+        //     url: '/user/:orderId/orders',
+        //     templateUrl: 'views/order-history.html',
+        //     controller: 'OrderHistory as ordhist'
         // })
-        // .state('productDetail', { //product/id
-        //     url: '/product-detail',
-        //     templateUrl: 'views/product-detail.html',
-        //     // controller: 'ProductDetail as prod-dtl',
-        //     resolve:{
-        //         jokeInit: function(Joke){ //Joke=service
-        //             return Joke.getJoke();
-        //         }
-        //     }
+        .state('dashboard', {
+            url:'/dashboard',
+            templateUrl: 'views/dashboard.html',
+            controller: 'Dashboard as dsh',
+            // resolve:{
+            //     transList: function(Trans){
+            //         return Trans.list();
+            //     }
+            // }
+        // })
+        // .state('trans-dtl',{
+        //     url: '/transaction/:transId',
+        //     templateUrl: 'views/transaction-detail.html',
+        //     controller: 'TransactionDetail as transdtl'
+        })
+        .state('admin', {
+            url: '/admin',
+            templateUrl: 'views/admin.html',
+            controller: 'Admin as ad',
+            resolve:{
+                itemsList: function(Item){
+                    return Item.list();
+                }
+            }
         });
     })
     .config(['$httpProvider', function ($httpProvider) {

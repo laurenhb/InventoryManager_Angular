@@ -12,7 +12,7 @@
     <body ng-app="routerApp">
 
         <!-- NAVIGATION -->
-        <nav class="navbar navbar-inverse" role="navigation">
+        <nav class="navbar navbar-inverse" role="navigation" ng-controller="Nav as nav">
             <div class="navbar-header">
                 <a class="navbar-brand" ui-sref="home">DT</a>
             </div>
@@ -20,9 +20,19 @@
                 <li><a class="nav-link" ui-sref="product-home">Shop</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="nav-link" ui-sref="login">Login</a></li>
-                <li><a class="nav-link" ui-sref="signup">Sign-up</a></li>
-                <!-- <li><a class="nav-link pull-right" ui-sref="logout" ng-click="li.logout()">Log Out</a></li> -->
+                <li><a class="nav-link" ui-sref="login" ng-hide="nav.loggedIn !== null">Login</a></li>
+                <li><a class="nav-link" ui-sref="login" ng-show="nav.loggedIn !== null" ng-click="nav.logout()">Logout</a></li>
+                <li><a class="nav-link" ui-sref="signup" ng-hide="nav.loggedIn !== null">Sign-up</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" role="button" ng-show="nav.loggedIn !== null">{{nav.activeUser.name}}
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <!-- <li><a ui-sref="order-hist({userId: nav.activeUser.id})">Order History</a></li> -->
+                        <!-- <li><a ui-sref="trans-dtl" ng-show="nav.userRole === 'admin'">Transaction Detail</a></li> -->
+                        <li><a ui-sref="dashboard" ng-show="nav.userRole === 'admin'">Dashboard</a></li>
+                        <li><a ui-sref="admin" ng-show="nav.userRole === 'admin'">Admin</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
@@ -35,11 +45,16 @@
         <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
         <script type="text/javascript" src="bower_components/ngstorage/ngStorage.js"></script>
         <script type="text/javascript" src="src/app.js"></script>
+        <script type="text/javascript" src="src/controllers/nav-controllers.js"></script>
         <script type="text/javascript" src="src/controllers/product-home-controllers.js"></script>
         <script type="text/javascript" src="src/controllers/product-detail-controllers.js"></script>
         <script type="text/javascript" src="src/controllers/login-controllers.js"></script>
         <script type="text/javascript" src="src/controllers/signup-controllers.js"></script>
-        <script type="text/javascript" src="src/services/product-home-services.js"></script>
+        <script type="text/javascript" src="src/controllers/order-history-controllers.js"></script>
+        <script type="text/javascript" src="src/controllers/dashboard-controllers.js"></script>
+        <script type="text/javascript" src="src/controllers/admin-controllers.js"></script>
+        <script type="text/javascript" src="src/services/product-services.js"></script>
         <script type="text/javascript" src="src/services/authentication-services.js"></script>
+        <script type="text/javascript" src="src/services/transaction-services.js"></script>
     </body>
 </html>
