@@ -23,30 +23,9 @@
     display: block;
 }
 
-/*@-moz-document url-prefix() {
-    fieldset {
-        display: table-cell !important;
-    }
-}*/
 
-/*.table-responsive {
-    overflow-y: hidden !important;
-}*/
-
-/*.table-responseive, .product-description-cell {
-    white-space: nowrap;
-    max-width: 100px !important;
-    max-height: 100px !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: inherit;
-}*/
-
-.table{
-    max-width: 100px;
+.table-cell {
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

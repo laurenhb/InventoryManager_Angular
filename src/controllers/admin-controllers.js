@@ -2,7 +2,7 @@
     angular.module('routerApp')
     .controller('Admin', ['Item', 'itemsList', adminCtrl]);
 
-    function adminCtrl(Item, itemsList){
+    function adminCtrl(Item, itemsList, Trans){
         var self = this;
         // LOCAL VARIABLES
 
@@ -14,8 +14,19 @@
         self.noEditMode = noEditMode;
         self.noAddMode = noAddMode;
         self.addModeOn = addModeOn;
+        self.addTrans = addTrans;
+        self.showModal = showModal;
 
         // BOUND VALUES
+        self.currentProduct = {
+            id: '',
+            name: '',
+            description: '',
+            amt: '',
+            cost: '',
+            price: '',
+            imgThumbnail: ''
+        };
         self.prodArray = [];
         self.newItem = {
             id: '',
@@ -37,10 +48,30 @@
             price: '',
             imgThumbnail: ''
         };
+        self.newTrans = {
+            id: '',
+            note: '',
+            type: {
+                description: '',
+                id: ''
+            },
+            date: '',
+            totalPrice: '',
+            totalCost: '',
+            totalAmt: ''
+        };
 
         // BOUND FUNCTION IMPLEMENTATIONS
         self.prodArray = itemsList.data;
-
+        function showModal(item) {
+            self.currentProduct.id = item.id;
+            self.currentProduct.name = item.name;
+            self.currentProduct.description = item.description;
+            self.currentProduct.amt = item.amt;
+            self.currentProduct.cost = item.cost;
+            self.currentProduct.price = item.price;
+            self.currentProduct.imgThumbnail = item.imgThumbnail;
+        }
         function add(){
             if (!self.newItem.id || !self.newItem.name || !self.newItem.description || !self.newItem.amt || !self.newItem.cost || !self.newItem.price ||!self.newItem.imgThumbnail){
                 return;
@@ -130,6 +161,10 @@
                 };
             });
         }
+    }
+
+    function addTrans(item){
+
     }
 
         // HELPER FUNCTIONS

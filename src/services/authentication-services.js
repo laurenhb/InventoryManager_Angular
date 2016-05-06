@@ -4,6 +4,10 @@
 
     function userAuth($http, $localStorage){
         //init function for user info
+        // init();
+        // function init(){
+        //     getClaimsFromToken();
+        // }
         var service = {
             join: join,
             login: login,
