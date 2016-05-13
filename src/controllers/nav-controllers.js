@@ -9,6 +9,7 @@
         // BOUND FUNCTIONS
         // self.getNav = getNav;
         self.logout = logout;
+        self.isAuthed = isAuthed;
 
         // BOUND VALUES
         self.loggedIn = null;
@@ -19,7 +20,6 @@
             role: '',
             id: ''
         };
-
         $scope.$watch(function(){
             return UserAuth.info;
         }, function(newVal,oldVal){
@@ -36,7 +36,13 @@
                 console.log('self.activeUser: ' + self.activeUser);
             }
         });
+
         // BOUND FUNCTION IMPLEMENTATIONS
+        isAuthed();
+        function isAuthed(){
+            UserAuth.isAuthed();
+        }
+
         function logout(){
             UserAuth.logout();
             self.loggedIn = null;

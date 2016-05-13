@@ -32,7 +32,12 @@
         .state('productDetail', {
             url: '/product/:productId',
             templateUrl: 'views/product-detail.html',
-            controller: 'ProductDetail as proddtl'
+            controller: 'ProductDetail as proddtl',
+            resolve:{
+                itemsList: function(Item){
+                    return Item.list();
+                }
+            }
         })
         // .state('order-hist', {
         //     url: '/user/:orderId/orders',
@@ -43,11 +48,11 @@
             url:'/dashboard',
             templateUrl: 'views/dashboard.html',
             controller: 'Dashboard as dsh',
-            // resolve:{
-            //     transList: function(Trans){
-            //         return Trans.list();
-            //     }
-            // }
+            resolve:{
+                transList: function(Trans){
+                    return Trans.list();
+                }
+            }
         // })
         // .state('trans-dtl',{
         //     url: '/transaction/:transId',
@@ -61,6 +66,9 @@
             resolve:{
                 itemsList: function(Item){
                     return Item.list();
+                },
+                transList: function(Trans){
+                    return Trans.list();
                 }
             }
         });

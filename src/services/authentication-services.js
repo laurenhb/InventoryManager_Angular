@@ -3,11 +3,6 @@
     .factory('UserAuth', userAuth);
 
     function userAuth($http, $localStorage){
-        //init function for user info
-        // init();
-        // function init(){
-        //     getClaimsFromToken();
-        // }
         var service = {
             join: join,
             login: login,
@@ -15,12 +10,19 @@
             logout: logout,
             userRole: null,
             loggedIn: null,
-            getNav: getNav
+            getNav: getNav,
+            isAuthed: isAuthed
 		};
 		return service;
 
         function getNav(user){
             return user;
+        }
+
+        function isAuthed() {
+            service.info = getClaimsFromToken();
+            console.log(service.info);
+            return service.info;
         }
 
         function join(obj){
@@ -49,8 +51,8 @@
             console.log('success - auth');
             $localStorage.token = res.token;
             service.info = getClaimsFromToken();
-            service.loggedIn = service.info.name;
-            service.userRole = service.info.role;
+            // service.loggedIn = service.info.name;
+            // service.userRole = service.info.role;
             console.log(service.info);
         }
 

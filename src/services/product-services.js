@@ -10,12 +10,21 @@
             list: list,
             add: add,
             remove: remove,
-            edit: edit
+            edit: edit,
+            getDetail: getDetail
 		};
 		return service;
 
         function getProductArray () {
             return _productArray;
+        }
+
+        function getDetail(productId){
+            for (var i = 0; i < _productArray.length; i++){
+                if (_productArray[i].id === productId){
+                    return _productArray[i];
+                }
+            }
         }
 
         function list(){

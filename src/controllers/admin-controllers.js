@@ -1,8 +1,8 @@
 (function(){
     angular.module('routerApp')
-    .controller('Admin', ['Item', 'itemsList', adminCtrl]);
+    .controller('Admin', ['Item', 'itemsList', 'Trans', 'transList', adminCtrl]);
 
-    function adminCtrl(Item, itemsList, Trans){
+    function adminCtrl(Item, itemsList, Trans, transList){
         var self = this;
         // LOCAL VARIABLES
 
@@ -16,6 +16,7 @@
         self.addModeOn = addModeOn;
         self.addTrans = addTrans;
         self.showModal = showModal;
+        self.updateSub = updateSub;
 
         // BOUND VALUES
         self.currentProduct = {
@@ -28,6 +29,7 @@
             imgThumbnail: ''
         };
         self.prodArray = [];
+        self.transArray = [];
         self.newItem = {
             id: '',
             name: '',
@@ -49,20 +51,50 @@
             imgThumbnail: ''
         };
         self.newTrans = {
-            id: '',
-            note: '',
             type: {
                 description: '',
                 id: ''
             },
             date: '',
-            totalPrice: '',
-            totalCost: '',
-            totalAmt: ''
+            notes: '',
+            altersId:'',
+            subTransactions: []
         };
+        self.transSub = '';
+        self.transQty = '';
+        self.transOptions = [
+            {
+                id: 1,
+                description: 'Sale'
+            },
+            {
+                id: 2,
+                description: 'Lost/Stolen'
+            },
+            {
+                id: 3,
+                description: 'Returned to Supplier'
+            },
+            {
+                id: 4,
+                description: 'Inventory Purchase'
+            },
+            {
+                id: 5,
+                description: 'Returned'
+            },
+            {
+                id: 6,
+                description: 'Returned Defective'
+            }
+        ];
 
         // BOUND FUNCTION IMPLEMENTATIONS
         self.prodArray = itemsList.data;
+        self.transArray = transList.data;
+        function updateSub(){
+            self.transSub = self.transQty * self.currentProduct.price;
+        }
         function showModal(item) {
             self.currentProduct.id = item.id;
             self.currentProduct.name = item.name;
@@ -161,9 +193,38 @@
                 };
             });
         }
-    }
 
-    function addTrans(item){
+        function addTrans(trans){
+            console.log('trans: ', angular.copy(trans));
+            console.log(typeof self.newTrans.type.id);
+            self.newTrans.subTransactions.push({
+                id: self.currentProduct.id,
+                qty: self.transQty
+            });
+            self.newTrans.date = new Date();
+            console.log(angular.copy(self.newTrans));
+            Trans.add(self.newTrans)
+            .then(function(response){
+                self.newTrans = {
+                    type: {
+                        description: '',
+                        id: ''
+                    },
+                    date: '',
+                    notes: '',
+                    altersId:'',
+                    subTransactions: [
+                        {
+                            id: '',
+                            qty: ''
+                        }
+                    ]
+                };
+            },
+            function(response){
+                alert(response.data.message);
+            });
+        }
 
     }
 
