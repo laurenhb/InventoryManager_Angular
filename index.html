@@ -28,6 +28,7 @@
                     <a class="dropdown-toggle" role="button" ng-show="nav.loggedIn !== null">{{nav.activeUser.name}}
                     <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a ui-sref="order-hist">Order History</a></li>
                         <!-- <li><a ui-sref="order-hist({userId: nav.activeUser.id})">Order History</a></li> -->
                         <!-- <li><a ui-sref="trans-dtl" ng-show="nav.userRole === 'admin'">Transaction Detail</a></li> -->
                         <li><a ui-sref="dashboard" ng-show="nav.userRole === 'admin'">Dashboard</a></li>

@@ -6,7 +6,8 @@
         var service = {
             list: list,
             getOrders: getOrders,
-            add: add
+            add: add,
+            edit: edit
 		};
 		return service;
 
@@ -17,8 +18,8 @@
                 });
         }
 
-        function getOrders(userId){
-            return $http.get('http://wta-inventorybackend.herokuapp.com/api/v1/user/:' + userId + '/orders')
+        function getOrders(){
+            return $http.get('http://wta-inventorybackend.herokuapp.com/api/v1/user/orders')
                 .success(function(response){
                     return response;
                 });
@@ -28,6 +29,13 @@
             return $http.post('http://wta-inventorybackend.herokuapp.com/api/v1/transaction', newTrans)
                 .success(function(response){
                     console.log(response);
+                    return response;
+                });
+        }
+
+        function edit(editTrans, transId){
+            return $http.put('http://wta-inventorybackend.herokuapp.com/api/v1/transaction/:' + transId)
+                .success(function(response){
                     return response;
                 });
         }

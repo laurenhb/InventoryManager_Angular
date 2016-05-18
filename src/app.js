@@ -39,11 +39,16 @@
                 }
             }
         })
-        // .state('order-hist', {
-        //     url: '/user/:orderId/orders',
-        //     templateUrl: 'views/order-history.html',
-        //     controller: 'OrderHistory as ordhist'
-        // })
+        .state('order-hist', {
+            url: '/user/orders',
+            templateUrl: 'views/order-history.html',
+            controller: 'OrderHistory as ordhist',
+            resolve:{
+                orderList: function(Trans){
+                    return Trans.getOrders();
+                }
+            }
+        })
         .state('dashboard', {
             url:'/dashboard',
             templateUrl: 'views/dashboard.html',

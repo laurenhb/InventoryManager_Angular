@@ -1,9 +1,49 @@
 <h1 class="text-center">Duzett Tech Shop</h1>
-<div ng-repeat="products in prodhm.productArray" class="well">
-    <img class="card-thumbnail" ng-src={{products.imgThumbnail}}>
-    <h4 class="card-title">{{products.name}}</h4>
+
+<!-- MODAL -->
+<div class="modal fade" id="buyNowModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Buy Now</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        Product ID: {{prodhm.currentProduct.id}}<br>
+                        <h4>{{prodhm.currentProduct.name}}<br>
+                        {{prodhm.currentProduct.price | currency}}</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="card-thumbnail" ng-src={{prodhm.currentProduct.imgThumbnail}}>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        Quantity: <input placeholder="0" ng-model="prodhm.transQty" ng-change="prodhm.updateSub()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <h4>Total:</h4>
+                    <h4 ng-show="prodhm.transSub">{{prodhm.transSub | currency}}</h4>
+                </div>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" ng-click="prodhm.addTrans(prodhm.newTrans)" data-dismiss="modal">Buy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW -->
+<div ng-repeat="product in prodhm.productArray" class="well">
+    <img class="card-thumbnail" ng-src={{product.imgThumbnail}}>
+    <h4 class="card-title">{{product.name}}</h4>
     <p class="card-text">
-        Price: ${{products.price}}
+        Price: ${{product.price}}
     </p>
-    <button class="btn btn-warning" ui-sref="productDetail({productId: products.id})">Details</button>
+    <button class="btn btn-warning" ui-sref="productDetail({productId: product.id})">Details</button>
+    <button class="btn btn-warning" ng-click="prodhm.showModal(product)" data-toggle="modal" data-target="#buyNowModal">Buy Now</button>
 </div>
