@@ -53,7 +53,7 @@
         }
 
         function edit(id, editItem){
-            return $http.put(link + '/:' + id, editItem)
+            return $http.put(link + '/' + id, editItem)
                 .success(function(data){
                     return data;
                 });

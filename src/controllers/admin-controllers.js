@@ -105,11 +105,11 @@
             self.currentProduct.imgThumbnail = item.imgThumbnail;
         }
         function add(){
-            if (!self.newItem.id || !self.newItem.name || !self.newItem.description || !self.newItem.amt || !self.newItem.cost || !self.newItem.price ||!self.newItem.imgThumbnail){
+            if (!self.newItem.name || !self.newItem.description || !self.newItem.amt || !self.newItem.cost || !self.newItem.price ||!self.newItem.imgThumbnail){
                 return;
             }
             Item.add({
-                id: self.newItem.id,
+                // id: self.newItem.id,
                 name: self.newItem.name,
                 description: self.newItem.description,
                 amt: self.newItem.amt,
@@ -117,7 +117,7 @@
                 price: self.newItem.price,
                 imgThumbnail: self.newItem.imgThumbnail
             }).then(function(response){
-                self.newItem.id = response.data;
+                self.newItem.id = response.data.id;
                 self.prodArray.push(self.newItem);
                 self.newItem = {
                     id: '',
@@ -171,12 +171,12 @@
             self.addMode = true;
         }
 
-        function saveEdit(id){
-            Item.edit(id, self.editItem).then(function(response){
+        function saveEdit(prod){
+            Item.edit(prod.id, self.editItem).then(function(response){
                 for (var i=0; i<self.prodArray.length; i++){
-                    if (self.prodArray[i].id === id){
+                    if (self.prodArray[i].id === prod.id){
                         self.prodArray[i] = response.data;
-                        self.prodArray[i].id = id;
+                        self.prodArray[i].id = prod.id;
                         console.log(self.prodArray);
                         self.editMode = null;
                         break;

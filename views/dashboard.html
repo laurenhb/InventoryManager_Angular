@@ -1,3 +1,66 @@
+<!-- MODAL -->
+<div class="modal fade" id="transModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button ng-click="dsh.clearCurrentTrans()" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Transaction Detail</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Transaction ID: {{dsh.currentTrans.id}}</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Order Total: {{dsh.currentTrans.totalPrice | currency}}</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-warning" ng-click="dsh.edit(dsh.currentTrans.id)"><img class="icon" src="images/icons/edit.png" /></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <span ng-repeat="product in dsh.currentTrans.subTransactions">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>{{product.name}}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div><span ng-hide="dsh.editMode">Product ID: {{product.productId}}</span><input ng-show="dsh.editMode" ng-model="dsh.editTrans.subTransactions.id"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div><span ng-hide="dsh.editMode">Quantity: {{product.amt}}</span><input ng-show="dsh.editMode" ng-model="dsh.editTrans.subTransactions.qty"></input></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img ng-src={{product.imgThumbnail}}>
+                        </div>
+                        <div class="col-md-4">
+                            <div></div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Total Price: ${{product.totalPrice}}</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div></div>
+                        </div>
+                    </div>
+                </span>
+                <hr class="m-y-2">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="dsh.clearCurrentTrans()" data-dismiss="modal"><img class="icon" src="images/icons/trash.png" /></button>
+                <button type="button" class="btn btn-warning" ng-click="dsh.makeReturn(dsh.editTrans)" data-dismiss="modal"><img class="icon" src="images/icons/save.png" /></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW -->
 <h2>Transaction Summary</h2>
 <table class="table table-hover">
     <tr>
@@ -31,6 +94,7 @@
         <th>Amount</th>
         <th>Price</th>
         <th>Cost</th>
+        <th>Manage</th>
     </tr>
     <tr ng-repeat="trans in dsh.transArray">
         <td>{{trans.id}}</td>
@@ -40,5 +104,8 @@
         <td>{{trans.totalAmt}}</td>
         <td>{{trans.totalPrice | currency}}</td>
         <td>{{trans.totalCost | currency}}</td>
+        <td>
+            <button ng-click="dsh.showModal(trans)" type="button" class="btn btn-warning" data-toggle="modal" data-target="#transModal">Details</button>
+        </td>
     </tr>
 </table>
