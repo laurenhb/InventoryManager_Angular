@@ -4,16 +4,29 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button ng-click="dsh.clearCurrentTrans()" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h3 class="modal-title" id="myModalLabel">Transaction Detail</h3>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                        <h3 class="modal-title" id="myModalLabel">Transaction Detail</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-warning" ng-click="dsh.edit(dsh.currentTrans.id)"><img class="icon" src="images/icons/edit.png" /></button>
+                    </div>
+                </div>
+                <hr class="m-y-2">
+                <div class="row">
+                    <div class="col-md-6">
                         <h4>Transaction ID: {{dsh.currentTrans.id}}</h4>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <h4>Order Total: {{dsh.currentTrans.totalPrice | currency}}</h4>
                     </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-warning" ng-click="dsh.edit(dsh.currentTrans.id)"><img class="icon" src="images/icons/edit.png" /></button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>{{dsh.currentTrans.date | date:'MM/dd/yyyy @ h:mma'}}</h4>
+                    </div>
+                    <div class="cold-md-6">
+                        <h4>Note: <span ng-hide="dsh.editMode">{{dsh.editTrans.notes}}</span><input ng-show="dsh.editMode" ng-model="dsh.editTrans.notes"></input></h4>
                     </div>
                 </div>
             </div>
@@ -24,10 +37,10 @@
                             <div>{{product.name}}</div>
                         </div>
                         <div class="col-md-4">
-                            <div><span ng-hide="dsh.editMode">Product ID: {{product.productId}}</span><input ng-show="dsh.editMode" ng-model="dsh.editTrans.subTransactions.id"></div>
+                            <div>Product ID: <span ng-hide="dsh.editMode">{{product.productId}}</span><input ng-show="dsh.editMode" ng-model="product.productId"></input></div>
                         </div>
                         <div class="col-md-4">
-                            <div><span ng-hide="dsh.editMode">Quantity: {{product.amt}}</span><input ng-show="dsh.editMode" ng-model="dsh.editTrans.subTransactions.qty"></input></div>
+                            <div>Quantity: <span ng-hide="dsh.editMode">{{product.amt}}</span><input ng-show="dsh.editMode" ng-model="product.amt"></input></div>
                         </div>
                     </div>
                     <div class="row">
@@ -38,15 +51,15 @@
                             <div></div>
                         </div>
                         <div class="col-md-4">
-                            <h4>Total Price: ${{product.totalPrice}}</h4>
+                            <div></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div></div>
                         </div>
-                        <div class="col-md-4">
-                            <div></div>
+                        <div class="col-md-6">
+                            <h4>Total Price: ${{product.totalPrice}}</h4>
                         </div>
                     </div>
                 </span>
@@ -54,7 +67,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" ng-click="dsh.clearCurrentTrans()" data-dismiss="modal"><img class="icon" src="images/icons/trash.png" /></button>
-                <button type="button" class="btn btn-warning" ng-click="dsh.makeReturn(dsh.editTrans)" data-dismiss="modal"><img class="icon" src="images/icons/save.png" /></button>
+                <button type="button" class="btn btn-warning" ng-click="dsh.saveEdit(dsh.editTrans)" data-dismiss="modal"><img class="icon" src="images/icons/save.png" /></button>
             </div>
         </div>
     </div>

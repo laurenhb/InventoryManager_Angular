@@ -8,8 +8,7 @@
 
         // BOUND FUNCTIONS
         self.edit = edit;
-        // self.saveEdit = saveEdit;
-        // self.noEditMode = noEditMode;
+        self.saveEdit = saveEdit;
         self.showModal = showModal;
         self.clearCurrentTrans = clearCurrentTrans;
 
@@ -33,8 +32,37 @@
             totalPrice: '',
             totalCost: '',
             totalAmt: '',
-            subTransactions: []
+            subTransactions: [],
+            notes: '',
+            type: null
         };
+        self.editQty = '';
+        self.transOptions = [
+            {
+                id: 1,
+                description: 'Sale'
+            },
+            {
+                id: 2,
+                description: 'Lost/Stolen'
+            },
+            {
+                id: 3,
+                description: 'Returned to Supplier'
+            },
+            {
+                id: 4,
+                description: 'Inventory Purchase'
+            },
+            {
+                id: 5,
+                description: 'Returned'
+            },
+            {
+                id: 6,
+                description: 'Returned Defective'
+            }
+        ];
 
 
         // BOUND FUNCTION IMPLEMENTATIONS
@@ -43,6 +71,7 @@
         function showModal(trans) {
             Trans.getOrderDetail(trans.id)
                 .then(function(response){
+                    console.log('response info', response.data);
                     self.currentTrans.id = response.data.id;
                     self.currentTrans.date = response.data.date;
                     self.currentTrans.totalPrice = response.data.totalPrice;
@@ -51,7 +80,16 @@
                     for (var i = 0; i < response.data.subTransactions.length; i++){
                         self.currentTrans.subTransactions.push(response.data.subTransactions[i]);
                     }
+                    // for (var j = 0; j < response.data.subTransactions.length; j++){
+                    //     self.editTrans.subTransactions.push({
+                    //         id: response.data.subTransactions[j].productId,
+                    //         qty: response.data.subTransactions[j].amt
+                    //     });
+                    // }
+                    self.editTrans.notes = response.data.note;
+                    self.currentTrans.type = response.data.type.id;
                     console.log('currentTrans info', self.currentTrans);
+                    console.log('editTrans info', self.editTrans);
                 });
         }
 
@@ -71,6 +109,62 @@
                 totalAmt: '',
                 subTransactions: []
             };
+            self.editTrans = {
+                type: {
+                    description: '',
+                    id: ''
+                },
+                date: '',
+                notes: '',
+                altersId:'',
+                subTransactions: []
+            };
+            self.editMode = null;
+        }
+
+        function saveEdit(trans){
+            for (var i = 0; i < self.currentTrans.subTransactions.length; i++){
+                self.editTrans.subTransactions.push({
+                    id: self.currentTrans.subTransactions[i].productId,
+                    qty: self.currentTrans.subTransactions[i].amt
+                });
+            }
+            for (var j = 0; j < self.transOptions.length; j++){
+                if (self.transOptions[j].id === self.currentTrans.type){
+                    self.editTrans.type.id = self.transOptions[j].id;
+                    self.editTrans.type.description = self.transOptions[j].description;
+                }
+            }
+            self.editTrans.date = new Date();
+            self.editTrans.altersId = self.currentTrans.id;
+            console.log(angular.copy(self.editTrans));
+            Trans.edit(self.editTrans, self.currentTrans.id)
+            .then(function(response){
+                self.editTrans = {
+                    type: {
+                        description: '',
+                        id: ''
+                    },
+                    date: '',
+                    notes: '',
+                    altersId:'',
+                    subTransactions: [
+                        {
+                            id: '',
+                            qty: ''
+                        }
+                    ]
+                };
+                self.currentTrans = {
+                    id: '',
+                    date: '',
+                    totalPrice: '',
+                    totalCost: '',
+                    totalAmt: '',
+                    subTransactions: []
+                };
+                clearCurrentTrans();
+            });
         }
 
     }
