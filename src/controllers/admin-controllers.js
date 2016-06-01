@@ -1,8 +1,8 @@
 (function(){
     angular.module('routerApp')
-    .controller('Admin', ['Item', 'itemsList', 'Trans', 'transList', adminCtrl]);
+    .controller('Admin', ['Item', 'itemsList', 'summList', 'Trans', 'transList', adminCtrl]);
 
-    function adminCtrl(Item, itemsList, Trans, transList){
+    function adminCtrl(Item, itemsList, summList, Trans, transList){
         var self = this;
         // LOCAL VARIABLES
 
@@ -18,6 +18,7 @@
         self.showModal = showModal;
         self.updateSub = updateSub;
         self.clearTransByProd = clearTransByProd;
+        self.transByProd = transByProd;
 
         // BOUND VALUES
         self.currentProduct = {
@@ -32,6 +33,7 @@
         self.prodArray = [];
         self.transArray = [];
         self.transByProdArray = [];
+        self.prodSummArray = [];
         self.newItem = {
             id: '',
             name: '',
@@ -93,6 +95,7 @@
 
         // BOUND FUNCTION IMPLEMENTATIONS
         self.prodArray = itemsList.data;
+        self.prodSummArray = summList.data;
         self.transArray = transList.data;
         function updateSub(){
             self.transSub = self.transQty * self.currentProduct.price;
@@ -234,8 +237,15 @@
             self.transByProdArray = [];
         }
 
-        function transByProd(){
-            
+        function transByProd(item){
+            showModal(item);
+            Trans.transByProd(item.id)
+            .then(function(response){
+                console.log(response);
+                for (var i = 0; i < response.data.length; i++){
+                    self.transByProdArray.push(response.data[i]);
+                }
+            });
         }
 
     }

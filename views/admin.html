@@ -40,7 +40,7 @@
                     <h4>Total:</h4>
                     <h4 ng-show="ad.transSub">{{ad.transSub | currency}}</h4>
                 </div>
-                <button type="button" class="btn btn-warning" data-dismiss="modal"><img class="icon" src="images/icons/trash.png" /></button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal"><img class="icon" src="images/icons/cancel.png" /></button>
                 <button type="button" class="btn btn-warning" ng-click="ad.addTrans(ad.newTrans)" data-dismiss="modal"><img class="icon" src="images/icons/save.png" /></button>
             </div>
         </div>
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" ng-click="ad.noAddMode()" data-dismiss="modal"><img class="icon" src="images/icons/trash.png" /></button>
+                <button type="button" class="btn btn-warning" ng-click="ad.noAddMode()" data-dismiss="modal"><img class="icon" src="images/icons/cancel.png" /></button>
                 <button type="button" class="btn btn-warning" ng-click="ad.add(ad.newItem)" data-dismiss="modal"><img class="icon" src="images/icons/save.png" /></button>
             </div>
         </div>
@@ -91,12 +91,12 @@
 
 <!-- MODAL -->
 <div class="modal fade" id="transByProdModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button ng-click="ad.clearTransByProd()" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <h3 class="modal-title" id="myModalLabel">Transactions By Product</h3>
                     </div>
                 </div>
@@ -111,27 +111,30 @@
                         <img class="card-thumbnail" ng-src={{ad.currentProduct.imgThumbnail}}>
                     </div>
                 </div>
-                <table class="table table-hover">
-                    <tr>
-                        <th>Transaction ID</th>
-                        <th>Transaction Type</th>
-                        <th>Date</th>
-                        <th>Notes</th>
-                        <th>Amount</th>
-                        <th>Price</th>
-                        <th>Cost</th>
-                    </tr>
-                    <tr ng-repeat="trans in ad.transByProdArray">
-                        <td>{{trans.id}}</td>
-                        <td>{{trans.type.description}}</td>
-                        <td>{{trans.date | date:'MM/dd/yyyy @ h:mma'}}</td>
-                        <td>{{trans.note}}</td>
-                        <td>{{trans.totalAmt}}</td>
-                        <td>{{trans.totalPrice | currency}}</td>
-                        <td>{{trans.totalCost | currency}}</td>
-                    </tr>
-                </table>
-                <hr class="m-y-2">
+                <div class="row">
+                    <div>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Transaction Type</th>
+                                <th>Date</th>
+                                <th>Notes</th>
+                                <th>Amount</th>
+                                <th>Price</th>
+                                <th>Cost</th>
+                            </tr>
+                            <tr ng-repeat="trans in ad.transByProdArray">
+                                <td>{{trans.id}}</td>
+                                <td>{{trans.type.description}}</td>
+                                <td>{{trans.date | date:'MM/dd/yyyy @ h:mma'}}</td>
+                                <td>{{trans.note}}</td>
+                                <td>{{trans.totalAmt}}</td>
+                                <td>{{trans.totalPrice | currency}}</td>
+                                <td>{{trans.totalCost | currency}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
             </div>
@@ -140,6 +143,33 @@
 </div>
 
 <!-- VIEW -->
+<!-- <h3>Product Summary</h3> -->
+<!-- <table class="table table-hover">
+    <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Total Orders</th>
+        <th>Units Ordered</th>
+        <th>Total Sales</th>
+        <th>Units Returned</th>
+        <th>Total Costs</th>
+        <th>Total Stolen</th>
+        <th>Units Stolen</th>
+    </tr>
+    <tr ng-repeat="prod in ad.prodSummArray">
+        <td>{{prod.id}}</td>
+        <td>{{prod.name}}</td>
+        <td>{{prod.timesOrdered}}</td>
+        <td>{{prod.unitsOrdered}}</td>
+        <td>{{prod.totalSales | currency}}</td>
+        <td>{{prod.unitsReturned}}</td>
+        <td>{{prod.totalCosts | currency}}</td>
+        <td>{{prod.totalStolen}}</td>
+        <td>{{prod.unitsStolen}}</td>
+    </tr>
+</table> -->
+
+<h3>All Products</h3>
 <table class="table table-hover">
     <tr>
         <th>SKU</th>
@@ -150,9 +180,8 @@
         <th>Price</th>
         <th>IMG Thumbnail</th>
         <th>Manage</th>
-        <th> </th>
     </tr>
-    <tr ng-repeat="prod in ad.prodArray" ng-click="ad.transByProd()" data-toggle="modal" data-target="#transByProdModal">
+    <tr ng-repeat="prod in ad.prodArray">
         <td>{{prod.id}}</td>
         <td class="table-cell"><span ng-hide="prod.id === ad.editMode">{{prod.name}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.name"></input></td>
         <td class="table-cell"><span ng-hide="prod.id === ad.editMode">{{prod.description}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.description"></input></td>
@@ -163,8 +192,9 @@
         <td>
             <button type="button" class="btn btn-warning" ng-show="prod.id !== ad.editMode" ng-click="ad.edit(prod)"><img class="icon" src="images/icons/edit.png" /></button>
             <button type="button" class="btn btn-warning" ng-show="prod.id === ad.editMode" ng-click="ad.saveEdit(prod)"><img class="icon" src="images/icons/save.png" /></button>
-            <button type="button" class="btn btn-warning" ng-show="prod.id === ad.editMode" ng-click="ad.noEditMode()"><img class="icon" src="images/icons/trash.png" /></button>
+            <button type="button" class="btn btn-warning" ng-show="prod.id === ad.editMode" ng-click="ad.noEditMode()"><img class="icon" src="images/icons/cancel.png" /></button>
         </td>
+        <td><button ng-click="ad.transByProd(prod)" type="button" class="btn btn-warning" data-toggle="modal" data-target="#transByProdModal"><img class="icon" src="images/icons/info.png" /></button></td>
         <td><button ng-click="ad.showModal(prod)" type="button" class="btn btn-warning" data-toggle="modal" data-target="#transModal"><img class="icon" src="images/icons/shop.png" /></button></td>
         <td><button type="button" class="btn btn-warning" ng-click="ad.deleteItem(prod)"><img class="icon" src="images/icons/trash.png" /></button></td>
     </tr>

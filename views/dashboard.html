@@ -66,7 +66,7 @@
                 <hr class="m-y-2">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" ng-click="dsh.clearCurrentTrans()" data-dismiss="modal"><img class="icon" src="images/icons/trash.png" /></button>
+                <button type="button" class="btn btn-warning" ng-click="dsh.clearCurrentTrans()" data-dismiss="modal"><img class="icon" src="images/icons/cancel.png" /></button>
                 <button type="button" class="btn btn-warning" ng-click="dsh.saveEdit(dsh.editTrans)" data-dismiss="modal"><img class="icon" src="images/icons/save.png" /></button>
             </div>
         </div>
@@ -74,8 +74,75 @@
 </div>
 
 <!-- VIEW -->
-<h2>Transaction Summary</h2>
-<table class="table table-hover">
+<h1>Dashboard</h1>
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#transSumm" role="tab" data-toggle="tab"><h3>Transaction Summary</h3></a></li>
+    <li role="presentation"><a href="#prodSumm" role="tab" data-toggle="tab"><h3>Product Summary</h3></a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="transSumm">
+        <table class="table table-hover">
+            <tr>
+                <th>Transaction Type</th>
+                <th>Sale</th>
+                <th>Lost/Stolen</th>
+                <th>Returned to Supplier</th>
+                <th>Inventory Purchase</th>
+                <th>Returned</th>
+                <th>Returned Defective</th>
+                <th>Totals</th>
+            </tr>
+            <tr ng-repeat="prod in dsh.transSummArray">
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+            </tr>
+        </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="prodSumm">
+        <table class="table table-hover">
+            <tr>
+                <th>SKU</th>
+                <th>Name</th>
+                <th>Total Orders</th>
+                <th>Units Ordered</th>
+                <th>Total Sales</th>
+                <th>Units Returned</th>
+                <th>Total Costs</th>
+                <th>Total Stolen</th>
+                <th>Units Stolen</th>
+            </tr>
+            <tr ng-repeat="prod in dsh.prodSummArray">
+                <td>{{prod.id}}</td>
+                <td>{{prod.name}}</td>
+                <td>{{prod.timesOrdered}}</td>
+                <td>{{prod.unitsOrdered}}</td>
+                <td>{{prod.totalSales | currency}}</td>
+                <td>{{prod.unitsReturned}}</td>
+                <td>{{prod.totalCosts | currency}}</td>
+                <td>{{prod.totalStolen}}</td>
+                <td>{{prod.unitsStolen}}</td>
+            </tr>
+        </table>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- <h3>Transaction Summary</h3> -->
+<!-- <table class="table table-hover">
     <tr>
         <th>Transaction Type</th>
         <th>Sale</th>
@@ -96,8 +163,8 @@
         <td>{{}}</td>
         <td>{{}}</td>
     </tr>
-</table>
-<h2>All Transactions</h2>
+</table> -->
+<h3>All Transactions</h3>
 <table class="table table-hover">
     <tr>
         <th>Transaction ID</th>
@@ -118,7 +185,7 @@
         <td>{{trans.totalPrice | currency}}</td>
         <td>{{trans.totalCost | currency}}</td>
         <td>
-            <button ng-click="dsh.showModal(trans)" type="button" class="btn btn-warning" data-toggle="modal" data-target="#transModal">Details</button>
+            <button ng-click="dsh.showModal(trans)" type="button" class="btn btn-warning" data-toggle="modal" data-target="#transModal"><img class="icon" src="images/icons/info.png" /></button>
         </td>
     </tr>
 </table>

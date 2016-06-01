@@ -1,8 +1,8 @@
 (function(){
     angular.module('routerApp')
-    .controller('Dashboard', ['Trans', 'transList', dashCtrl]);
+    .controller('Dashboard', ['Trans', 'transList', 'Item', 'prodSummList', dashCtrl]);
 
-    function dashCtrl(Trans, transList, $state){
+    function dashCtrl(Trans, transList, Item, prodSummList, $state){
         var self = this;
         // LOCAL VARIABLES
 
@@ -15,6 +15,8 @@
 
         // BOUND VALUES
         self.transArray = [];
+        self.transSummArray = [];
+        self.prodSummArray = [];
         self.editMode = null;
         self.editTrans = {
             type: {
@@ -67,6 +69,7 @@
 
         // BOUND FUNCTION IMPLEMENTATIONS
         self.transArray = transList.data;
+        self.prodSummArray = prodSummList.data;
 
         function showModal(trans) {
             Trans.getOrderDetail(trans.id)

@@ -10,7 +10,8 @@
             getOrders: getOrders,
             add: add,
             edit: edit,
-            getOrderDetail: getOrderDetail
+            getOrderDetail: getOrderDetail,
+            transByProd: transByProd
 		};
 		return service;
 
@@ -60,6 +61,13 @@
 
         function edit(editTrans, transId){
             return $http.put('http://wta-inventorybackend.herokuapp.com/api/v1/transaction/' + transId, editTrans)
+                .success(function(response){
+                    return response;
+                });
+        }
+
+        function transByProd(prodId){
+            return $http.get('http://wta-inventorybackend.herokuapp.com/api/v1/product/' + prodId + '/transactions')
                 .success(function(response){
                     return response;
                 });

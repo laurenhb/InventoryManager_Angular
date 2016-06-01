@@ -56,6 +56,9 @@
             resolve:{
                 transList: function(Trans){
                     return Trans.list();
+                },
+                prodSummList: function(Item){
+                    return Item.summ();
                 }
             }
         // })
@@ -72,6 +75,9 @@
                 itemsList: function(Item){
                     return Item.list();
                 },
+                // summList: function(Item){
+                //     return Item.summ();
+                // },
                 transList: function(Trans){
                     return Trans.list();
                 }

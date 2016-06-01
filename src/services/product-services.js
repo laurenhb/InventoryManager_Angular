@@ -11,7 +11,8 @@
             add: add,
             remove: remove,
             edit: edit,
-            getDetail: getDetail
+            getDetail: getDetail,
+            summ: summ
 		};
 		return service;
 
@@ -35,6 +36,13 @@
                         _productArray.push(product);
                     }
                     return _productArray;
+                });
+        }
+
+        function summ(){
+            return $http.get(link + '/summary')
+                .success(function(response){
+                    return response;
                 });
         }
 
