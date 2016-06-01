@@ -26,7 +26,7 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        Note: <input ng-model="ad.newTrans.notes" />
+                        Note: <input ng-model="ad.newTrans.note" />
                     </div>
                 </div>
                 <div class="row">
@@ -89,6 +89,56 @@
     </div>
 </div>
 
+<!-- MODAL -->
+<div class="modal fade" id="transByProdModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button ng-click="ad.clearTransByProd()" type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="modal-title" id="myModalLabel">Transactions By Product</h3>
+                    </div>
+                </div>
+                <hr class="m-y-2">
+                <div class="row">
+                    <div class="col-md-6">
+                        Product ID: {{ad.currentProduct.id}}<br>
+                        <h4>{{ad.currentProduct.name}}<br>
+                        {{ad.currentProduct.price | currency}}</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="card-thumbnail" ng-src={{ad.currentProduct.imgThumbnail}}>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Transaction Type</th>
+                        <th>Date</th>
+                        <th>Notes</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th>Cost</th>
+                    </tr>
+                    <tr ng-repeat="trans in ad.transByProdArray">
+                        <td>{{trans.id}}</td>
+                        <td>{{trans.type.description}}</td>
+                        <td>{{trans.date | date:'MM/dd/yyyy @ h:mma'}}</td>
+                        <td>{{trans.note}}</td>
+                        <td>{{trans.totalAmt}}</td>
+                        <td>{{trans.totalPrice | currency}}</td>
+                        <td>{{trans.totalCost | currency}}</td>
+                    </tr>
+                </table>
+                <hr class="m-y-2">
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- VIEW -->
 <table class="table table-hover">
     <tr>
@@ -102,7 +152,7 @@
         <th>Manage</th>
         <th> </th>
     </tr>
-    <tr ng-repeat="prod in ad.prodArray">
+    <tr ng-repeat="prod in ad.prodArray" ng-click="ad.transByProd()" data-toggle="modal" data-target="#transByProdModal">
         <td>{{prod.id}}</td>
         <td class="table-cell"><span ng-hide="prod.id === ad.editMode">{{prod.name}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.name"></input></td>
         <td class="table-cell"><span ng-hide="prod.id === ad.editMode">{{prod.description}}</span><input ng-show="prod.id === ad.editMode" ng-model="ad.editItem.description"></input></td>

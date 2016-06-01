@@ -25,7 +25,7 @@
                 id: ''
             },
             date: '',
-            notes: '',
+            note: '',
             altersId:'',
             subTransactions: []
         };
@@ -112,7 +112,7 @@
                         id: ''
                     },
                     date: '',
-                    notes: '',
+                    note: '',
                     altersId:'',
                     subTransactions: [
                         {

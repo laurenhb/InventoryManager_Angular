@@ -22,7 +22,7 @@
                 id: ''
             },
             date: '',
-            notes: '',
+            note: '',
             altersId:'',
             subTransactions: []
         };
@@ -33,7 +33,7 @@
             totalCost: '',
             totalAmt: '',
             subTransactions: [],
-            notes: '',
+            note: '',
             type: null
         };
         self.editQty = '';
@@ -86,7 +86,7 @@
                     //         qty: response.data.subTransactions[j].amt
                     //     });
                     // }
-                    self.editTrans.notes = response.data.note;
+                    self.editTrans.note = response.data.note;
                     self.currentTrans.type = response.data.type.id;
                     console.log('currentTrans info', self.currentTrans);
                     console.log('editTrans info', self.editTrans);
@@ -115,7 +115,7 @@
                     id: ''
                 },
                 date: '',
-                notes: '',
+                note: '',
                 altersId:'',
                 subTransactions: []
             };
@@ -136,17 +136,27 @@
                 }
             }
             self.editTrans.date = new Date();
-            self.editTrans.altersId = self.currentTrans.id;
+            // self.editTrans.altersId = self.currentTrans.id;
             console.log(angular.copy(self.editTrans));
             Trans.edit(self.editTrans, self.currentTrans.id)
             .then(function(response){
+                console.log('response.data for trans edit: ', response);
+                for (var i=0; i<self.transArray.length; i++){
+                    if (self.transArray[i].id === self.currentTrans.id){
+                        self.transArray[i] = response.data;
+                        self.transArray[i].id = self.currentTrans.id;
+                        console.log(self.transArray);
+                        self.editMode = null;
+                        break;
+                    }
+                }
                 self.editTrans = {
                     type: {
                         description: '',
                         id: ''
                     },
                     date: '',
-                    notes: '',
+                    note: '',
                     altersId:'',
                     subTransactions: [
                         {

@@ -17,6 +17,7 @@
         self.addTrans = addTrans;
         self.showModal = showModal;
         self.updateSub = updateSub;
+        self.clearTransByProd = clearTransByProd;
 
         // BOUND VALUES
         self.currentProduct = {
@@ -30,6 +31,7 @@
         };
         self.prodArray = [];
         self.transArray = [];
+        self.transByProdArray = [];
         self.newItem = {
             id: '',
             name: '',
@@ -56,7 +58,7 @@
                 id: ''
             },
             date: '',
-            notes: '',
+            note: '',
             altersId:'',
             subTransactions: []
         };
@@ -95,6 +97,7 @@
         function updateSub(){
             self.transSub = self.transQty * self.currentProduct.price;
         }
+
         function showModal(item) {
             self.currentProduct.id = item.id;
             self.currentProduct.name = item.name;
@@ -104,6 +107,7 @@
             self.currentProduct.price = item.price;
             self.currentProduct.imgThumbnail = item.imgThumbnail;
         }
+
         function add(){
             if (!self.newItem.name || !self.newItem.description || !self.newItem.amt || !self.newItem.cost || !self.newItem.price ||!self.newItem.imgThumbnail){
                 return;
@@ -211,7 +215,7 @@
                         id: ''
                     },
                     date: '',
-                    notes: '',
+                    note: '',
                     altersId:'',
                     subTransactions: [
                         {
@@ -224,6 +228,14 @@
             function(response){
                 alert(response.data.message);
             });
+        }
+
+        function clearTransByProd(){
+            self.transByProdArray = [];
+        }
+
+        function transByProd(){
+            
         }
 
     }
