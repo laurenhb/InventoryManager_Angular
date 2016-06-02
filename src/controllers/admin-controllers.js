@@ -1,8 +1,8 @@
 (function(){
     angular.module('routerApp')
-    .controller('Admin', ['Item', 'itemsList', 'summList', 'Trans', 'transList', adminCtrl]);
+    .controller('Admin', ['Item', 'itemsList', 'Trans', 'transList', adminCtrl]);
 
-    function adminCtrl(Item, itemsList, summList, Trans, transList){
+    function adminCtrl(Item, itemsList, Trans, transList){
         var self = this;
         // LOCAL VARIABLES
 
@@ -95,7 +95,6 @@
 
         // BOUND FUNCTION IMPLEMENTATIONS
         self.prodArray = itemsList.data;
-        self.prodSummArray = summList.data;
         self.transArray = transList.data;
         function updateSub(){
             self.transSub = self.transQty * self.currentProduct.price;

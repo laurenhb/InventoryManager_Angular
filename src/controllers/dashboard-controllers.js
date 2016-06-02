@@ -11,13 +11,14 @@
         self.saveEdit = saveEdit;
         self.showModal = showModal;
         self.clearCurrentTrans = clearCurrentTrans;
-
+        self.selectTab = selectTab;
 
         // BOUND VALUES
         self.transArray = [];
         self.transSummArray = [];
         self.prodSummArray = [];
         self.editMode = null;
+        self.isSelected = null;
         self.editTrans = {
             type: {
                 description: '',
@@ -70,6 +71,10 @@
         // BOUND FUNCTION IMPLEMENTATIONS
         self.transArray = transList.data;
         self.prodSummArray = prodSummList.data;
+
+        function selectTab(num){
+            self.isSelected = num;
+        }
 
         function showModal(trans) {
             Trans.getOrderDetail(trans.id)

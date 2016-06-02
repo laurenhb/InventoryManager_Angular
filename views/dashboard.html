@@ -79,13 +79,13 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#transSumm" role="tab" data-toggle="tab"><h3>Transaction Summary</h3></a></li>
-    <li role="presentation"><a href="#prodSumm" role="tab" data-toggle="tab"><h3>Product Summary</h3></a></li>
+    <li role="presentation" class="active"><a ng-click="dsh.selectTab(1)" role="tab" data-toggle="tab"><h3>Transaction Summary</h3></a></li>
+    <li role="presentation" class="acitve"><a ng-click="dsh.selectTab(2)" role="tab" data-toggle="tab"><h3>Product Summary</h3></a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="transSumm">
+    <div role="tabpanel" class="tab-pane active" id="transSumm" ng-hide="dsh.isSelected === 2">
         <table class="table table-hover">
             <tr>
                 <th>Transaction Type</th>
@@ -109,7 +109,7 @@
             </tr>
         </table>
     </div>
-    <div role="tabpanel" class="tab-pane" id="prodSumm">
+    <div role="tabpanel" class="tab-pane active" id="prodSumm" ng-show="dsh.isSelected === 2">
         <table class="table table-hover">
             <tr>
                 <th>SKU</th>
